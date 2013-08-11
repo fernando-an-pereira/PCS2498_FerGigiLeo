@@ -1,3 +1,5 @@
+#include <mcs51/8051.h>
+
 void init_serial(void) 
 { 
 	PCON = 0x00; /* SMOD = 0, no modo 1, divide clock por 32 */ 
