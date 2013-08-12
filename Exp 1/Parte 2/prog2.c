@@ -10,7 +10,7 @@ void init_serial(void)
 	/* SCON.1 - TI=1 (transmissor pronto) */
 	/* SCON.0 - RI=0 (receptor vazio)*/ 
 	TMOD = 0x20; /* Configura timer 1: modo 2, 8 bits, auto reload */
-	TH1 = 0xFD; /* divisão para 9.600 baud */
+	TH1 = 0xFA; /* divisão para 4.800 baud */
 	TR1 = 1; /* TCON.6 - dispara timer 1 */
 	IE = 0x90; /* IE.4– habilita interrupção do canal serial e IE.7- global */ 
 } 

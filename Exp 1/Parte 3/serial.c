@@ -1,4 +1,5 @@
 #include <mcs51/8051.h>
+#include "relogio.h"
 
 unsigned char __far __at 0xFFFC vet[] = {0x02, 0xA0, 0x23};
 
@@ -9,10 +10,10 @@ void init_serial(void)
 	/* SCON.4 - REN=1(habilita a recepção) */
 	/* SCON.1 - TI=1 (transmissor pronto) */
 	/* SCON.0 - RI=0 (receptor vazio)*/ 
-	TMOD = 0x20; /* Configura timer 1: modo 2, 8 bits, auto reload */
+	TMOD |= 0x20; /* Configura timer 1: modo 2, 8 bits, auto reload */
 	TH1 = 0xFD; /* divisão para 9.600 baud */
 	TR1 = 1; /* TCON.6 - dispara timer 1 */
-	IE = 0x90; /* IE.4– habilita interrupção do canal serial e IE.7- global */ 
+	IE |= 0x90; /* IE.1- habilita interrupção timer0, IE.4- do canal serial e IE.7- global */ 
 } 
 
 void int_serial (void) __interrupt 4 __using 1 
@@ -22,14 +23,18 @@ void int_serial (void) __interrupt 4 __using 1
 	{ /* Se for interrupção de recepção: */
 		RI = 0; /* limpa pedido de interrupção de recepção */
 		aux = SBUF; /* Retira caractere recebido do bufer */
-		while (!TI); /* Espera transmissor estar pronto para transmitir */
-		TI = 0; /* Bloqueia transmissor */
-		SBUF = aux; /* Envia caractere recebido (eco) */
+		if(aux == 'z' || aux == 'Z')
+			zera_relogio();
+		else if(aux == 'p' || aux == 'P')
+			para_relogio();
+		else if (aux == 'c' || aux == 'C')
+			inicia_relogio();
 	} 
 } 
 
-void main(void) 
-{ 
-	init_serial( ); 
-	while(1); 
+void transmite_serial(char c) 
+{
+	while (!TI); /* Espera transmissor estar pronto para transmitir */
+	TI = 0; /* Bloqueia transmissor */
+	SBUF = c; /* Envia caractere */
 }
