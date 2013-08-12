@@ -15,6 +15,8 @@ void main()
 	transmite_bloco_serial(bloco_enviado, 1024);
 	recebe_bloco_serial(bloco_recebido, 256);
 	
+	compara_blocos(bloco_enviado, bloco_recebido, 256);
+	
 	
 
 	while(1)
