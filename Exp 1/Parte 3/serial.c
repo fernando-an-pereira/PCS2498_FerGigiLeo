@@ -1,7 +1,7 @@
 #include <mcs51/8051.h>
 #include "relogio.h"
 
-unsigned char __far __at 0xFFFC vet[] = {0x02, 0xA0, 0x23};
+unsigned char __far __at 0xFFFC vet_relogio[] = {0x02, 0xA0, 0x23};
 
 void init_serial(void) 
 { 	/* Timer 1 é utilizado para gerar a taxa de comunicação */

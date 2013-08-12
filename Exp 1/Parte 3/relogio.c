@@ -2,7 +2,7 @@
 #include "serial.h"
 #include "relogio.h"
 
-unsigned char __far __at 0xFFF3 vet[] = {0x02, 0xA0, 0x0B};
+unsigned char __far __at 0xFFF3 vet_serial[] = {0x02, 0xA0, 0x0B};
 
 /* Contadores */
 /* contador de centesimos de segundos */
