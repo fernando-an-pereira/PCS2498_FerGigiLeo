@@ -33,6 +33,8 @@ void init_relogio() {
 	TL0 = 0x00; /* valor inicial do low value do timer0 */
 	count = 0x24; /* valor inicial do contador auxiliar */
 	IE |= 0x82; /* IE.1- habilita interrupção timer0  e IE.7- global */ 
+	inicia_relogio();
+	zera_relogio();
 }
 
 /* subrotina que inicia a contagem do relógio */

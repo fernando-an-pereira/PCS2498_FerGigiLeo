@@ -1,5 +1,24 @@
 #include <mcs51/8051.h>
 
+void delay20()
+{
+	unsigned char i = 0, j = 0, k = 0, m = 0;
+	
+	while(i < 0xff) {
+		while(j < 0xff) {
+			while(k < 0xff) {
+				k++;
+				while(m < 0xff) {
+					m++;
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+	
+}
+
 void init_serial(void) 
 { 
 	PCON = 0x00; /* SMOD = 0, no modo 1, divide clock por 32 */ 
@@ -19,5 +38,7 @@ void main(void)
 		while (!TI); /* Espera transmissor estar pronto para transmitir */
 		TI = 0; /* Bloqueia transmissor */
 		SBUF = 0x41; /* Envia caractere */
+		delay20();
 	} /* Após a transmissão, o canal serial fará TI = 1 */
+	
 } 

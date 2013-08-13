@@ -31,5 +31,10 @@ void int_serial (void) __interrupt 4 __using 1
 void main(void) 
 { 
 	init_serial( ); 
+	
+	while (!TI); /* Espera transmissor estar pronto para transmitir */
+	TI = 0; /* Bloqueia transmissor */
+	SBUF = '\n'; /* Envia caractere recebido (eco) */
+	
 	while(1); 
 }

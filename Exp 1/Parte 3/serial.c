@@ -1,7 +1,7 @@
 #include <mcs51/8051.h>
 #include "relogio.h"
 
-unsigned char __far __at 0xFFFC vet_relogio[] = {0x02, 0xA0, 0x23};
+unsigned char __far __at 0xFFFC vet[] = {0x02, 0xA0, 0x23};
 
 void init_serial(void) 
 { 	/* Timer 1 é utilizado para gerar a taxa de comunicação */
@@ -13,7 +13,7 @@ void init_serial(void)
 	TMOD |= 0x20; /* Configura timer 1: modo 2, 8 bits, auto reload */
 	TH1 = 0xFD; /* divisão para 9.600 baud */
 	TR1 = 1; /* TCON.6 - dispara timer 1 */
-	IE |= 0x90; /* IE.1- habilita interrupção timer0, IE.4- do canal serial e IE.7- global */ 
+	IE |= 0x90; /* IE.4– habilita interrupção do canal serial e IE.7- global */ 
 } 
 
 void int_serial (void) __interrupt 4 __using 1 
